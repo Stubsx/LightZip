@@ -2,7 +2,7 @@
 
 一个原生 macOS 26 压缩工具。打开压缩包后直接浏览文件夹，按空格预览，双击打开文件；只在需要时解压相应文件。
 
-[下载最新版本](https://github.com/Stubsx/LightZip/releases/latest) · [提交问题](https://github.com/Stubsx/LightZip/issues)
+[下载测试版](https://github.com/Stubsx/LightZip/releases) · [提交问题](https://github.com/Stubsx/LightZip/issues)
 
 ## 功能
 

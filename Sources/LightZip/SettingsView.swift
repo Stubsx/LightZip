@@ -68,36 +68,23 @@ struct SettingsView: View {
             }
             .contentSurface(radius: 16)
 
-            VStack(alignment: .leading, spacing: 18) {
-                HStack(spacing: 20) {
-                    settingIcon("arrow.triangle.2.circlepath")
-                    VStack(alignment: .leading, spacing: 9) {
-                        Text("软件更新 · \(updater.version)").font(Theme.emphasis)
-                        Text(updater.status.isEmpty ? "从 GitHub 获取轻压的新版本。" : updater.status)
-                            .foregroundStyle(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                    Spacer(minLength: 0)
-                    Button { updater.checkForUpdates() } label: {
-                        Text("检查更新").frame(minWidth: 112, minHeight: 24)
-                    }
-                    .buttonStyle(.glassProminent).tint(Theme.accent).controlSize(.large)
-                    .disabled(!updater.canCheck || model.busy)
-                }
-                Divider()
-                Toggle("自动下载并安装更新", isOn: Binding(
+            HStack(spacing: 18) {
+                Text("版本 \(updater.version)")
+                    .font(.system(size: 13)).foregroundStyle(.secondary).fixedSize()
+                UpdateStatusIndicator(updater: updater)
+                Spacer(minLength: 8)
+                Toggle("自动更新", isOn: Binding(
                     get: { updater.automaticUpdates }, set: { updater.setAutomaticUpdates($0) }
                 ))
-                .toggleStyle(.switch).tint(Theme.accent)
-                Text("运行时每天检查，下载后在退出时安装。不会中断当前任务。")
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-                if let lastCheck = updater.lastCheck {
-                    Text("上次检查：\(lastCheck.formatted(date: .abbreviated, time: .shortened))")
-                        .foregroundStyle(.secondary)
+                .toggleStyle(.switch).tint(Theme.accent).fixedSize()
+                .help("运行时每天检查，自动下载并在退出时安装。")
+                Button { updater.checkForUpdates() } label: {
+                    Text("检查更新").frame(minWidth: 80, minHeight: 24)
                 }
+                .buttonStyle(.glassProminent).tint(Theme.accent).controlSize(.large)
+                .disabled(!updater.canCheck || model.busy)
             }
-            .padding(22)
+            .padding(.horizontal, 22).padding(.vertical, 16)
             .contentSurface(radius: 16)
 
             DisclosureGroup("手动设置路径", isExpanded: $showingManualPath) {

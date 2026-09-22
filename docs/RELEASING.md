@@ -33,7 +33,7 @@ gh release create v0.8.0 --draft --target main --title '轻压 0.8.0' \
 确认版本、说明和资产后：
 
 ```sh
-gh release edit v0.8.0 --draft=false
+gh release edit v0.8.0 --draft=false --prerelease
 cp dist/release-0.8.0/appcast.xml appcast.xml
 git add appcast.xml
 git commit -m 'Publish signed update feed for 0.8.0'
@@ -41,6 +41,8 @@ git push origin main
 ```
 
 必须先让下载资产可用，再发布更新清单。生成后的 XML 不能手工改动，任何改动都需要重新签名。后续 `release.py` 会保留已有清单条目。
+
+未公证测试版在 GitHub 标记为 Pre-release；达到正式发布标准后再使用普通 Release。
 
 ## 验证
 

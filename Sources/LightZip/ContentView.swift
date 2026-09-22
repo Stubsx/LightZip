@@ -6,6 +6,7 @@ struct ContentView: View {
     @EnvironmentObject var model: AppModel
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @StateObject private var defaultApplication = DefaultArchiveApplication()
+    @ObservedObject private var updater = AppUpdater.shared
     @State private var targeted = false
 
     var body: some View {
@@ -77,14 +78,24 @@ struct ContentView: View {
                 navigationButton("设置", symbol: "gearshape", selected: model.informationPage == .settings) {
                     model.showInformationPage(.settings)
                 }
-                .help("配置访达右键菜单和默认打开应用")
+                .help("配置访达右键菜单、默认打开应用和自动更新")
                 navigationButton("使用说明", symbol: "questionmark.circle", selected: model.informationPage == .help) {
                     model.showInformationPage(.help)
                 }
             }
             .padding(.horizontal, 10)
-            Text("轻压 \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "开发版")")
-                .foregroundStyle(.secondary).padding(.horizontal, 24).padding(.top, 12).padding(.bottom, 20)
+            Button { model.showInformationPage(.settings) } label: {
+                HStack(spacing: 12) {
+                    Text("v\(updater.version)").foregroundStyle(.secondary)
+                    UpdateStatusIndicator(updater: updater)
+                }
+                .font(.system(size: 12))
+                .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain).disabled(model.busy)
+            .help(updater.statusHelp)
+            .padding(.horizontal, 24).padding(.top, 6).padding(.bottom, 14)
         }.frame(width: 190).frame(maxHeight: .infinity)
             .glassEffect(.regular.tint(.blue.opacity(0.025)), in: RoundedRectangle(cornerRadius: 22))
     }
