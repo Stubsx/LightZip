@@ -2,12 +2,17 @@
 """Install the app, register its Finder extension and keep services as a fallback."""
 from pathlib import Path
 from datetime import datetime
+import argparse
 import plistlib
 import shutil
 import subprocess
 
 root = Path(__file__).resolve().parent.parent
-source = root / 'dist/轻压.app'
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--source', type=Path, default=root / 'dist/轻压.app')
+source = parser.parse_args().source.resolve()
+if plistlib.loads((source / 'Contents/Info.plist').read_bytes()).get('CFBundleIdentifier') != 'local.lightzip.app':
+    raise SystemExit('安装源不是轻压应用。')
 target = Path('/Applications/轻压.app')
 desktop = Path.home() / 'Desktop/轻压.app'
 backup = root / '.backups' / ('install-' + datetime.now().strftime('%Y%m%d-%H%M%S'))
