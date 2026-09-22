@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><defs><linearGradient id="zip" x1="390" y1="260" x2="670" y2="684" gradientUnits="userSpaceOnUse"><stop stop-color="#4CAEEB"/><stop offset="0.5" stop-color="#1884DB"/><stop offset="1" stop-color="#1164C9"/></linearGradient></defs>
+<path d="M 383 289 L 453 249 L 697 390 Q 705 395 705 404 L 705 629 Q 705 638 697 643 L 642 675 Q 634 680 634 670 L 634 449 Q 634 444 630 442 Z" fill="url(#zip)"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><defs>
+<linearGradient id="left" x1="272" y1="414" x2="502" y2="778" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#C5E7F8"/></linearGradient>
+<linearGradient id="right" x1="516" y1="476" x2="780" y2="748" gradientUnits="userSpaceOnUse"><stop stop-color="#B3DCF5"/><stop offset="1" stop-color="#6FB5E6"/></linearGradient>
+<linearGradient id="top" x1="330" y1="306" x2="670" y2="466" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#E7F6FF"/></linearGradient>
+</defs>
+<path d="M 512 224 Q 528 224 544 233 L 756 355 Q 778 368 778 392 L 778 639 Q 778 663 756 676 L 534 804 Q 512 817 490 804 L 268 676 Q 246 663 246 639 L 246 392 Q 246 368 268 355 L 480 233 Q 496 224 512 224 Z" fill="url(#left)"/>
+<path d="M 512 517 L 772 367 Q 778 378 778 392 L 778 639 Q 778 663 756 676 L 534 804 Q 523 810 512 810 Z" fill="url(#right)"/>
+<path d="M 512 224 Q 528 224 544 233 L 756 355 Q 766 361 772 367 L 528 508 Q 512 517 496 508 L 252 367 Q 258 361 268 355 L 480 233 Q 496 224 512 224 Z" fill="url(#top)"/>
+</svg>

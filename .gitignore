@@ -1,0 +1,22 @@
+.build/
+dist/
+.DS_Store
+.backups/
+.validation/
+VALIDATION.md
+__pycache__/
+*.py[cod]
+.env
+.env.*
+*.p12
+*.p8
+*.pem
+Examples/示例文件 (2)/
+Vendor/*
+!Vendor/runtime.json
+!Vendor/README.md
+!Vendor/recovery/
+Vendor/recovery/*
+!Vendor/recovery/README.md
+!Vendor/recovery/Licenses/
+!Vendor/recovery/patches/

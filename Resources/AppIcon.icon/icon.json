@@ -1,0 +1,84 @@
+{
+  "fill" : {
+    "automatic-gradient" : "extended-srgb:0.46000,0.75000,0.94500,1.00000"
+  },
+  "groups" : [
+    {
+      "blur-material" : 0,
+      "layers" : [
+        {
+          "image-name" : "Pull.svg",
+          "name" : "Zipper Pull"
+        }
+      ],
+      "name" : "Zipper Pull",
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.22
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.12
+      }
+    },
+    {
+      "blur-material" : 0,
+      "layers" : [
+        {
+          "image-name" : "Teeth.svg",
+          "name" : "Zipper Teeth"
+        }
+      ],
+      "name" : "Zipper Teeth",
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.05
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.08
+      }
+    },
+    {
+      "blur-material" : 0,
+      "layers" : [
+        {
+          "image-name" : "Ribbon.svg",
+          "name" : "Blue Ribbon"
+        }
+      ],
+      "name" : "Blue Ribbon",
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.15
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.2
+      }
+    },
+    {
+      "blur-material" : 0.15,
+      "layers" : [
+        {
+          "image-name" : "Archive.svg",
+          "name" : "Glass Archive"
+        }
+      ],
+      "name" : "Glass Archive",
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.25
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.35
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : [
+      "macOS"
+    ]
+  }
+}

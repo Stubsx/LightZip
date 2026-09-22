@@ -1,0 +1,29 @@
+--- a/src/dispatch.c
++++ b/src/dispatch.c
+@@ -136,6 +136,26 @@
+ 
+   work = MIN (work, max);
+ 
++  // LightZip: reduce first-result latency for its generated candidate queue.
++  // Opt-in only; keep the tuned kernel power and all safety checks unchanged.
++  // Grow dispatch sizes in one process, preserving the normal offset accounting.
++  const char *lightzip_ramp = getenv ("LIGHTZIP_RAMP_BATCHES");
++
++  if ((lightzip_ramp != NULL) && (strcmp (lightzip_ramp, "1") == 0)
++   && (user_options->attack_mode == ATTACK_MODE_STRAIGHT))
++  {
++    u64 batch_limit = 2048;
++    u64 boundary = batch_limit;
++
++    while ((words_off >= boundary) && (batch_limit < kernel_power))
++    {
++      batch_limit *= 2;
++      boundary += batch_limit;
++    }
++
++    work = MIN (work, batch_limit);
++  }
++
+   status_ctx->words_off += work;
+ 
+   hc_thread_mutex_unlock (status_ctx->mux_dispatcher);
