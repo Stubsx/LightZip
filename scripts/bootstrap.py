@@ -35,6 +35,20 @@ with tempfile.TemporaryDirectory(prefix='lightzip-runtime-') as directory:
     with tarfile.open(archive) as package:
         package.extractall(stage / 'unpacked', filter='data')
     unpacked = stage / 'unpacked'
+
+    def replace_file(source, destination):
+        # Perl installs some files read-only. Replace them atomically instead of
+        # writing through the old file (or an existing symlink).
+        destination = Path(destination)
+        with tempfile.NamedTemporaryFile(dir=destination.parent, prefix='.lightzip-copy-', delete=False) as file:
+            temporary = Path(file.name)
+        try:
+            shutil.copy2(source, temporary)
+            temporary.replace(destination)
+        finally:
+            temporary.unlink(missing_ok=True)
+        return str(destination)
+
     for item in ['7zip', 'recovery']:
         # copytree cannot replace existing symlinks on a repeated bootstrap.
         for link in (unpacked / item).rglob('*'):
@@ -42,6 +56,7 @@ with tempfile.TemporaryDirectory(prefix='lightzip-runtime-') as directory:
                 destination = root / 'Vendor' / link.relative_to(unpacked)
                 if destination.is_symlink():
                     destination.unlink()
-        shutil.copytree(unpacked / item, root / 'Vendor' / item, symlinks=True, dirs_exist_ok=True)
-    shutil.copy2(unpacked / '7zip-source.tar.xz', root / 'Vendor/7zip-source.tar.xz')
+        shutil.copytree(unpacked / item, root / 'Vendor' / item, symlinks=True, dirs_exist_ok=True,
+                        copy_function=replace_file)
+    replace_file(unpacked / '7zip-source.tar.xz', root / 'Vendor/7zip-source.tar.xz')
 print('Runtime verified and ready.')
