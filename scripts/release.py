@@ -7,7 +7,6 @@ import plistlib
 import shutil
 import subprocess
 import sys
-import xml.etree.ElementTree as ET
 
 root = Path(__file__).resolve().parent.parent
 parser = argparse.ArgumentParser(description=__doc__)
@@ -38,13 +37,8 @@ if (root / 'appcast.xml').exists():
 subprocess.run([str(tools / 'generate_appcast'), '--account', account, '--maximum-deltas', '0',
                 '--download-url-prefix', f'https://github.com/Stubsx/LightZip/releases/download/v{version}/',
                 '--embed-release-notes', str(directory)], check=True)
-subprocess.run([str(tools / 'sign_update'), '--account', account, '--verify', str(feed)], check=True)
-ns = {'sparkle': 'http://www.andymatuschak.org/xml-namespaces/sparkle'}
-items = ET.parse(feed).findall('./channel/item')
-item = next(item for item in items if item.findtext('sparkle:version', namespaces=ns) == info['CFBundleVersion'])
-enclosure = item.find('enclosure')
-signature = enclosure.attrib['{' + ns['sparkle'] + '}edSignature']
-subprocess.run([str(tools / 'sign_update'), '--account', account, '--verify', str(archive), signature], check=True)
+subprocess.run([sys.executable, str(root / 'scripts/verify-release.py'),
+                str(app / 'Contents/Info.plist'), str(feed), str(archive)], check=True)
 with archive.open('rb') as file:
     digest = hashlib.file_digest(file, 'sha256').hexdigest()
 (directory / 'SHA256SUMS').write_text(f'{digest}  {archive.name}\n')

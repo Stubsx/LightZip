@@ -46,6 +46,7 @@ git push origin main
 
 - 从 GitHub 下载 ZIP，核对 SHA-256，并运行 `codesign --verify --deep --strict` 检查解压后的应用。
 - 验证线上更新清单签名；确认版本、最低 macOS、Apple Silicon 要求、下载长度和 URL。
+- `python3 scripts/verify-release.py Resources/Info.plist appcast.xml 下载的ZIP` 使用内置公钥和系统 CryptoKit 独立验证，不读取私钥或钥匙串。
 - 在一个使用相同公钥、build number 较低的本地测试构建上，验证下载、安装、重启和最终版本。测试构建不发布到 GitHub。
 - 更新过程中验证运行任务不会被强制终止；设置和访达右键状态应保留。
 
