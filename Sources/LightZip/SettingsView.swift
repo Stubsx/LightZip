@@ -19,7 +19,7 @@ struct SettingsView: View {
                             Text("访达右键菜单").font(Theme.emphasis)
                             Label(finderEnabled ? "已启用" : "未启用",
                                   systemImage: finderEnabled ? "checkmark.circle.fill" : "circle")
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(finderEnabled ? Color.green : Color.secondary)
                         }
                         Text("选中文件或文件夹，直接右键压缩或解压。")
                             .foregroundStyle(.secondary)
